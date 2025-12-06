@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>French Legends – War Robots Clan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #02030a;
+      --bg-panel: rgba(5, 10, 25, 0.88);
+      --accent-orange: #ff7a1a;
+      --accent-blue: #54c2ff;
+      --accent-soft: #2b6dff;
+      --text-main: #e8f3ff;
+      --text-muted: #7c8da5;
+      --border-glow: rgba(255, 122, 26, 0.6);
+      --danger: #ff3366;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.7);
+      --blur-glass: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100vh;
+      width: 100%;
+      background: radial-gradient(circle at 10% 0%, #071023 0, #02030a 50%, #000 100%);
+      background-attachment: fixed; /* Fixe le fond */
+      color: var(--text-main);
+      font-family: "Rajdhani", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI";
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background FX */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      pointer-events: none;
+      opacity: 0.65;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(84, 194, 255, 0.14), transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(255, 122, 26, 0.18), transparent 55%);
+      z-index: -2;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.09;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+      z-index: -1;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.3fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+        padding-top: 5.5rem;
+      }
+    }
+
+    /* NAVBAR */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(20px);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.6rem clamp(1.5rem, 4vw, 3rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .star-logo {
+      width: 40px;
+      height: 40px;
+      position: relative;
+      filter: drop-shadow(0 0 14px rgba(255, 122, 26, 0.6));
+    }
+
+    .wordmark {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .wordmark span {
+      font-family: "Orbitron", system-ui;
+      letter-spacing: 0.2em;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+
+    .wordmark .french {
+      color: var(--accent-blue);
+    }
+
+    .wordmark .legends {
+      color: var(--accent-orange);
+      font-weight: 700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 0.3rem;
+      transition: color 0.2s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-orange));
+      transition: width 0.25s ease;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .cta-nav {
+      border-radius: 999px;
+      padding: 0.45rem 1.1rem;
+      border: 1px solid rgba(84, 194, 255, 0.5);
+      background: radial-gradient(circle at 0 0, rgba(84, 194, 255, 0.25), transparent),
+        rgba(6, 13, 32, 0.92);
+      box-shadow: 0 0 0 1px rgba(10, 40, 80, 0.9);
+      color: var(--accent-blue);
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .cta-nav:hover {
+      transform: translateY(-1px) scale(1.02);
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 18px rgba(84, 194, 255, 0.6);
+    }
+
+    .burger {
+      display: none;
+      width: 28px;
+      height: 22px;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .burger span {
+      display: block;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-orange));
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    @media (max-width: 780px) {
+      nav ul {
+        display: none;
+      }
+
+      .burger {
+        display: flex;
+      }
+    }
+
+    /* HERO + LEFT COLUMN */
+
+    .left-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+      padding-top: 2.2rem;
+      animation: fadeUp 0.8s ease-out both;
+    }
+
+    @media (max-width: 900px) {
+      .left-col {
+        padding-top: 0.5rem;
+      }
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.75rem;
+      color: var(--accent-blue);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-blue));
+      opacity: 0.7;
+    }
+
+    h1 {
+      font-family: "Orbitron", system-ui;
+      font-weight: 800;
+      font-size: clamp(2.3rem, 4vw, 3.4rem);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      line-height: 1.2;
+    }
+
+    h1 span.blue {
+      color: var(--accent-blue);
+    }
+
+    h1 span.orange {
+      color: var(--accent-orange);
+    }
+
+    .hero-sub {
+      max-width: 34rem;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.2rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 0.25rem 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: radial-gradient(circle at 0 0, rgba(255, 122, 26, 0.22), transparent),
+        rgba(4, 7, 18, 0.9);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--accent-orange));
+      box-shadow: 0 0 10px rgba(255, 122, 26, 0.9);
+    }
+
+    /* CTA buttons */
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      position: relative;
+      border-radius: 999px;
+      padding: 0.7rem 1.4rem;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease,
+        color 0.18s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, var(--accent-blue), var(--accent-orange));
+      color: #050812;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85);
+    }
+
+    .btn-primary::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      mix-blend-mode: screen;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) scale(1.03);
+      box-shadow: 0 0 22px rgba(84, 194, 255, 0.7), 0 18px 50px rgba(0, 0, 0, 0.9);
+    }
+
+    .btn-ghost {
+      border: 1px solid rgba(84, 194, 255, 0.7);
+      background: rgba(4, 9, 24, 0.85);
+      color: var(--accent-blue);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(9, 22, 52, 0.9);
+      transform: translateY(-1px);
+      box-shadow: 0 0 18px rgba(84, 194, 255, 0.6);
+    }
+
+    .btn-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 1px solid currentColor;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.55rem;
+    }
+
+    /* Meta info */
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.6rem;
+      margin-top: 0.9rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .hero-meta div strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: var(--text-main);
+      font-size: 0.85rem;
+    }
+
+    /* RIGHT COLUMN – PANELS */
+
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+      padding-top: 2.3rem;
+    }
+
+    @media (max-width: 900px) {
+      .right-col {
+        padding-top: 0.5rem;
+      }
+    }
+
+    .panel {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(10, 16, 36, 0.98), rgba(4, 6, 18, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      padding: 1.1rem 1.1rem 1.2rem;
+      backdrop-filter: blur(var(--blur-glass));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      opacity: 0.09;
+      background:
+        radial-gradient(circle at 10% 0%, var(--accent-blue), transparent 40%),
+        radial-gradient(circle at 90% 100%, var(--accent-orange), transparent 40%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .panel-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .panel-title-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--accent-blue));
+      box-shadow: 0 0 10px rgba(84, 194, 255, 0.9);
+    }
+
+    .panel-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-orange);
+      border-radius: 999px;
+      border: 1px solid rgba(255, 122, 26, 0.7);
+      padding: 0.15rem 0.7rem;
+      background: rgba(15, 6, 0, 0.9);
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin-top: 0.3rem;
+    }
+
+    .status-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .status-pill {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 0.18rem 0.7rem;
+      background: radial-gradient(circle at 0 0, rgba(84, 194, 255, 0.4), transparent),
+        rgba(0, 13, 35, 0.9);
+      color: var(--accent-blue);
+      border: 1px solid rgba(84, 194, 255, 0.7);
+    }
+
+    /* Radar map mockup */
+
+    .radar {
+      margin-top: 0.9rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(84, 194, 255, 0.45);
+      background: radial-gradient(circle at 50% 50%, rgba(84, 194, 255, 0.1), transparent),
+        radial-gradient(circle at 0 0, rgba(255, 122, 26, 0.08), transparent);
+      padding: 0.6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .radar-grid {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 10px;
+      background:
+        repeating-linear-gradient(
+          to right,
+          rgba(84, 194, 255, 0.12) 0,
+          rgba(84, 194, 255, 0.12) 1px,
+          transparent 1px,
+          transparent 16px
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(84, 194, 255, 0.12) 0,
+          rgba(84, 194, 255, 0.12) 1px,
+          transparent 1px,
+          transparent 16px
+        );
+      overflow: hidden;
+    }
+
+    .radar-sweep {
+      position: absolute;
+      width: 180%;
+      height: 180%;
+      top: -40%;
+      left: -40%;
+      background: conic-gradient(from 0deg, rgba(84, 194, 255, 0.35), transparent 55%);
+      mix-blend-mode: screen;
+      animation: sweep 4.5s linear infinite;
+      transform-origin: center;
+    }
+
+    .radar-center {
+      position: absolute;
+      inset: 25%;
+      border-radius: 50%;
+      border: 1px solid rgba(84, 194, 255, 0.4);
+      box-shadow: 0 0 18px rgba(84, 194, 255, 0.4);
+      pointer-events: none;
+    }
+
+    .radar-dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--accent-orange));
+      box-shadow: 0 0 12px rgba(255, 122, 26, 0.9);
+      animation: blink 1.8s ease-in-out infinite alternate;
+    }
+
+    .radar-dot:nth-child(1) {
+      top: 18%;
+      left: 62%;
+      animation-delay: 0.1s;
+    }
+
+    .radar-dot:nth-child(2) {
+      top: 58%;
+      left: 22%;
+      animation-delay: 0.5s;
+    }
+
+    .radar-dot:nth-child(3) {
+      top: 72%;
+      left: 74%;
+      animation-delay: 1s;
+    }
+
+    .radar-dot:nth-child(4) {
+      top: 34%;
+      left: 38%;
+      animation-delay: 1.4s;
+    }
+
+    .radar-legend {
+      margin-top: 0.55rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    /* Roster panel */
+
+    .roster-list {
+      margin-top: 0.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+    }
+
+    .member {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr 0.9fr;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.45rem 0.55rem;
+      border-radius: 9px;
+      background: linear-gradient(
+        90deg,
+        rgba(3, 10, 26, 0.8),
+        rgba(10, 30, 60, 0.9),
+        rgba(3, 10, 26, 0.8)
+      );
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .member span.role {
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      color: var(--accent-blue);
+    }
+
+    .member span.power {
+      justify-self: end;
+      font-family: "Orbitron", system-ui;
+      color: var(--accent-orange);
+      font-size: 0.78rem;
+    }
+
+    .member span.nick {
+      font-weight: 600;
+    }
+
+    /* FOOTER */
+
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 1.4rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    footer span {
+      opacity: 0.8;
+    }
+
+    footer strong {
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
+
+    /* Animations */
+
+    @keyframes sweep {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes blink {
+      from {
+        transform: scale(0.9);
+        opacity: 0.5;
+      }
+      to {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- NAV -->
+<header>
+  <div class="nav">
+    <div class="brand">
+      <!-- Logo SVG et nom de marque inchangés -->
+      <svg class="star-logo" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="fg-star" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#54c2ff" />
+            <stop offset="50%" stop-color="#54c2ff" />
+            <stop offset="50.1%" stop-color="#ff7a1a" />
+            <stop offset="100%" stop-color="#ff7a1a" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M32 5 25.5 22H7l14.5 10.5L15 50l17-11.5L49 50l-6.5-17.5L57 22H38.5z"
+          fill="none"
+          stroke="url(#fg-star)"
+          stroke-width="3"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <div class="wordmark">
+        <span class="french">FRENCH</span>
+        <span class="legends">LEGENDS</span>
+      </div>
+    </div>
+
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="information.html">Information</a></li>
+        <li><a href="membres.html">Membres</a></li>
+      </ul>
+    </nav>
+
+    <!-- Bouton Rejoindre le clan avec lien Discord -->
+    <a href="https://discord.gg/K4h5pHXs2u" class="cta-nav" target="_blank" rel="noopener noreferrer">Rejoindre le clan</a>
+
+    <button class="burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+
+  <!-- MAIN GRID -->
+  <main>
+    <!-- LEFT: HERO -->
+    <section id="hero" class="left-col">
+      <p class="eyebrow">War Robots • Clan français compétitif</p>
+      <h1>
+        <span class="blue">French</span> <span class="orange">Legends</span><br />
+        domination <span class="orange">métallique</span>
+      </h1>
+      <p class="hero-sub">
+        Clan francophone orienté <strong>guerres de ligue</strong>, coordination en
+        escouade et maîtrise des
+        <strong>builds méta</strong>. Nous recrutons des pilotes actifs prêts à faire
+        trembler le champ de bataille.
+      </p>
+
+      <div class="badge-row">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Ligue Champion
+        </div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Discord &amp; vocal obligatoires
+        </div>
+      </div>
+
+      <div class="cta-row" id="recrutement">
+  <a href="https://discord.gg/K4h5pHXs2u" class="btn btn-primary">
+    <span class="btn-icon">▶</span>
+    Postuler maintenant
+  </a>
+  <a href="information.html" class="btn btn-ghost">
+    <span class="btn-icon">◎</span>
+    Voir les règles du clan
+  </a>
+</div>
+
+      <div class="hero-meta">
+        <div>
+          <strong>Tag du clan</strong>
+          <span>[☆FR☆]</span>
+        </div>
+        <div>
+          <strong>Minimum</strong>
+          <span>Maitre</span>
+        </div>
+        <div>
+          <strong>Horaires</strong>
+          <span>Soirs &amp; week-end (CET)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: STATUS + ROSTER -->
+    <section class="right-col">
+      <!-- War status panel -->
+      <article id="radar-panel" class="panel reveal">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-title-dot"></span>
+            Status des guerres
+          </div>
+          <span class="panel-tag">En ligne</span>
+        </div>
+
+        <div class="status-row">
+          <span class="status-label">Escouade prête</span>
+          <span class="status-pill">5 / 6 pilotes</span>
+        </div>
+
+        <div class="radar" aria-hidden="true">
+          <div class="radar-grid">
+            <div class="radar-sweep"></div>
+            <div class="radar-center"></div>
+            <div class="radar-dot"></div>
+            <div class="radar-dot"></div>
+            <div class="radar-dot"></div>
+            <div class="radar-dot"></div>
+          </div>
+          <div class="radar-legend">
+            <span>Positions alliées</span>
+            <span>Menaces détectées</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Roster panel -->
+      <article id="roster-panel" class="panel reveal">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-title-dot"></span>
+            Haut gradé
+          </div>
+          <span class="panel-tag">Top 5</span>
+        </div>
+
+        <div class="roster-list">
+          <div class="member">
+            <span class="nick">[☆FR☆] Chucky</span>
+            <span class="role">Leader</span>
+            <span class="Trophées"></span>
+          </div>
+          <div class="member">
+            <span class="nick">[☆FR☆] Crimine1Torse</span>
+            <span class="role">Officier Superieur</span>
+            <span class="Trophées"></span>
+          </div>
+          <div class="member">
+            <span class="nick">[☆FR☆] NZT</span>
+            <span class="role">Officier Superieur</span>
+            <span class="Trophées"></span>
+          </div>
+          <div class="member">
+            <span class="nick">[☆FR☆] Carnage</span>
+            <span class="role">Officier Superieur</span>
+            <span class="Trophées"></span>
+          </div>
+          <div class="member">
+            <span class="nick">[☆FR☆] FudjinThorn</span>
+            <span class="role">Officier</span>
+            <span class="Trophées"></span>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  
+
+  <script>
+    // IntersectionObserver pour les panels (scroll reveal)
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>French Legends – Informations du clan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #02030a;
+      --bg-panel: rgba(5, 10, 25, 0.88);
+      --accent-orange: #ff7a1a;
+      --accent-blue: #54c2ff;
+      --accent-soft: #2b6dff;
+      --text-main: #e8f3ff;
+      --text-muted: #7c8da5;
+      --border-glow: rgba(255, 122, 26, 0.6);
+      --danger: #ff3366;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.7);
+      --blur-glass: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      min-height: 100vh;
+      width: 100%;
+      background: radial-gradient(circle at 10% 0%, #071023 0, #02030a 50%, #000 100%);
+      background-attachment: fixed; /* Fixe le fond */
+      color: var(--text-main);
+      font-family: "Rajdhani", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI";
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      pointer-events: none;
+      opacity: 0.65;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(84, 194, 255, 0.14), transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(255, 122, 26, 0.18), transparent 55%);
+      z-index: -2;
+    }
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.09;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+      z-index: -1;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      display: block;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(20px);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.6rem clamp(1.5rem, 4vw, 3rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+    .star-logo {
+      width: 40px;
+      height: 40px;
+      position: relative;
+      filter: drop-shadow(0 0 14px rgba(255, 122, 26, 0.6));
+    }
+    .wordmark {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .wordmark span {
+      font-family: "Orbitron", system-ui;
+      letter-spacing: 0.2em;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+    .wordmark .french { color: var(--accent-blue); }
+    .wordmark .legends { color: var(--accent-orange); font-weight:700; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 0.3rem;
+      transition: color 0.2s ease;
+    }
+    nav a::after {
+      content:"";
+      position:absolute;
+      left:0; bottom:0;
+      width:0; height:2px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-orange));
+      transition: width 0.25s ease;
+    }
+    nav a:hover { color: var(--text-main); }
+    nav a:hover::after { width:100%; }
+
+    .cta-nav {
+      border-radius: 999px;
+      padding: 0.45rem 1.1rem;
+      border: 1px solid rgba(84,194,255,0.5);
+      background: radial-gradient(circle at 0 0, rgba(84,194,255,0.25), transparent), rgba(6,13,32,0.92);
+      box-shadow: 0 0 0 1px rgba(10,40,80,0.9);
+      color: var(--accent-blue);
+      font-weight:600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .cta-nav:hover {
+      transform: translateY(-1px) scale(1.03);
+      border-color: rgba(255,255,255,0.6);
+      box-shadow: 0 0 18px rgba(84,194,255,0.6);
+    }
+
+    h1 {
+      font-family: "Orbitron", system-ui;
+      font-weight: 800;
+      font-size: clamp(2.3rem, 4vw, 3.2rem);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .panel {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(10,16,36,0.98), rgba(4,6,18,0.98));
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow-soft);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .panel::before {
+      content:"";
+      position:absolute;
+      inset:-30%;
+      opacity:0.09;
+      background:
+        radial-gradient(circle at 10% 0%, var(--accent-blue), transparent 40%),
+        radial-gradient(circle at 90% 100%, var(--accent-orange), transparent 40%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    h2 {
+      font-family: "Orbitron", system-ui;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--accent-blue);
+    }
+    p, li {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+      line-height: 1.5;
+    }
+    ul { padding-left: 1.1rem; }
+
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <svg class="star-logo" viewBox="0 0 64 64" aria-hidden="true">
+          <defs>
+            <linearGradient id="fg-star" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#54c2ff" />
+              <stop offset="50%" stop-color="#54c2ff" />
+              <stop offset="50.1%" stop-color="#ff7a1a" />
+              <stop offset="100%" stop-color="#ff7a1a" />
+            </linearGradient>
+          </defs>
+          <path d="M32 5 25.5 22H7l14.5 10.5L15 50l17-11.5L49 50l-6.5-17.5L57 22H38.5z"
+                fill="none" stroke="url(#fg-star)" stroke-width="3" stroke-linejoin="round"/>
+        </svg>
+        <div class="wordmark">
+          <span class="french">FRENCH</span>
+          <span class="legends">LEGENDS</span>
+        </div>
+      </div>
+      <nav aria-label="Navigation principale">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="information.html">Information</a></li>
+          <li><a href="membres.html">Membres</a></li>
+        </ul>
+      </nav>
+      <a href="https://discord.gg/K4h5pHXs2u" class="cta-nav" target="_blank" rel="noopener noreferrer">Rejoindre le clan</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Informations &amp; Règles du Clan</h1>
+
+    <div class="panel">
+      <h2>Objectif du Clan</h2>
+      <p>French Legends est un clan francophone orienté performance, guerres de ligue et gameplay coordonné. Nous visons l’excellence tout en gardant une ambiance respectueuse et soudée.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Conditions de Recrutement</h2>
+      <ul>
+        <li>⚙️ Minimum : Ligue Maître</li>
+        <li>🎧 Discord obligatoire + vocal en escouade</li>
+        <li>📅 Activité régulière : soirs & week-end</li>
+        <li>🤝 Participation aux guerres de ligue</li>
+        <li>📌 Respect des builds méta recommandés</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>Règles du Clan</h2>
+      <ul>
+        <li>Respect total entre membres.</li>
+        <li>Présence requise lors des sessions d'escouade.</li>
+        <li>Aucune toxicité ou comportement négatif.</li>
+        <li>Suivre les appels et stratégies des officiers en bataille.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>Sanctions &amp; Avertissements</h2>
+      <ul>
+        <li>1️⃣ Avertissement verbal (Discord)</li>
+        <li>2️⃣ Restriction participation / rétrogradation</li>
+        <li>3️⃣ Exclusion du clan en cas de manquements répétés</li>
+      </ul>
+    </div>
+
+  </main>
+
+</body>
+</html>
